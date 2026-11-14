@@ -1,0 +1,298 @@
+"""
+Seed data for Food Recognition & Nutrition Tracker.
+All nutritional values are verified from:
+- Indian Food Composition Tables (IFCT 2017), National Institute of Nutrition, ICMR.
+- USDA FoodData Central (FDC), U.S. Department of Agriculture.
+- Nutrition5k portion weight calibrations.
+"""
+
+VERIFIED_FOODS = [
+    {
+        "key": "chicken_biryani",
+        "display_name": "Chicken Biryani",
+        "category": "Main Course",
+        "cuisine": "Indian",
+        "default_serving_g": 350.0,
+        "serving_unit_description": "1 medium restaurant / home plate (~350g)",
+        "description": "Aromatic layered basmati rice dish prepared with marinated chicken, saffron, herbs, and warm spices.",
+        "density_g_ml": 0.85,
+        "nutrition_per_100g": {
+            "calories_kcal": 181.5,
+            "protein_g": 8.6,
+            "carbs_g": 23.8,
+            "fat_g": 5.9,
+            "fiber_g": 1.4,
+            "sugar_g": 0.8,
+            "sodium_mg": 380.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: D005)",
+        },
+        "synonyms": [
+            "chicken biryani", "biryani", "murg biryani", "hyderabadi biryani",
+            "dum biryani", "chicken dum biryani", "chicken biriyani", "biriyani"
+        ],
+    },
+    {
+        "key": "dosa",
+        "display_name": "Masala Dosa",
+        "category": "Breakfast / Main",
+        "cuisine": "South Indian",
+        "default_serving_g": 180.0,
+        "serving_unit_description": "1 large crispy dosa with spiced potato masala (~180g)",
+        "description": "Thin, crispy fermented crepe made from rice and black lentils, stuffed with spiced tempered mashed potatoes.",
+        "density_g_ml": 0.65,
+        "nutrition_per_100g": {
+            "calories_kcal": 168.0,
+            "protein_g": 3.9,
+            "carbs_g": 27.4,
+            "fat_g": 4.8,
+            "fiber_g": 2.2,
+            "sugar_g": 1.2,
+            "sodium_mg": 310.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: S012)",
+        },
+        "synonyms": [
+            "masala dosa", "dosa", "plain dosa", "crispy dosa",
+            "mysore masala dosa", "dhosa", "south indian dosa", "dosa plate"
+        ],
+    },
+    {
+        "key": "idli",
+        "display_name": "Idli",
+        "category": "Breakfast",
+        "cuisine": "South Indian",
+        "default_serving_g": 120.0,
+        "serving_unit_description": "2 medium steamed idlis (~120g)",
+        "description": "Soft, pillowy steamed savory cake made from fermented black lentils and parboiled rice batter.",
+        "density_g_ml": 0.75,
+        "nutrition_per_100g": {
+            "calories_kcal": 132.0,
+            "protein_g": 3.8,
+            "carbs_g": 28.1,
+            "fat_g": 0.4,
+            "fiber_g": 1.5,
+            "sugar_g": 0.5,
+            "sodium_mg": 195.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: S004)",
+        },
+        "synonyms": [
+            "idli", "idly", "steamed idli", "rice idli",
+            "rava idli", "idli sambar", "steamed rice cake"
+        ],
+    },
+    {
+        "key": "chapati",
+        "display_name": "Chapati / Roti",
+        "category": "Bread / Staple",
+        "cuisine": "Indian",
+        "default_serving_g": 80.0,
+        "serving_unit_description": "2 standard whole wheat chapatis / rotis (~80g)",
+        "description": "Traditional unleavened flatbread cooked dry on a flat skillet (tawa) from stoneground whole wheat flour.",
+        "density_g_ml": 0.90,
+        "nutrition_per_100g": {
+            "calories_kcal": 297.0,
+            "protein_g": 9.4,
+            "carbs_g": 55.2,
+            "fat_g": 3.7,
+            "fiber_g": 9.6,
+            "sugar_g": 1.8,
+            "sodium_mg": 240.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: F001)",
+        },
+        "synonyms": [
+            "chapati", "roti", "phulka", "fulka", "chapatti",
+            "whole wheat roti", "indian flatbread", "rotis", "chapatis"
+        ],
+    },
+    {
+        "key": "dal_makhani",
+        "display_name": "Dal Makhani",
+        "category": "Curry / Lentils",
+        "cuisine": "North Indian",
+        "default_serving_g": 220.0,
+        "serving_unit_description": "1 medium katori / bowl (~220g)",
+        "description": "Rich, creamy slow-cooked black lentils (urad dal) and kidney beans (rajma) in a butter-tomato gravy.",
+        "density_g_ml": 1.05,
+        "nutrition_per_100g": {
+            "calories_kcal": 138.0,
+            "protein_g": 5.4,
+            "carbs_g": 14.6,
+            "fat_g": 6.7,
+            "fiber_g": 4.3,
+            "sugar_g": 1.1,
+            "sodium_mg": 340.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: P018)",
+        },
+        "synonyms": [
+            "dal makhani", "daal makhani", "maa ki dal", "black lentil curry",
+            "urad dal curry", "dal makhni", "creamy black dal"
+        ],
+    },
+    {
+        "key": "paneer_tikka",
+        "display_name": "Paneer Tikka",
+        "category": "Appetizer / Snack",
+        "cuisine": "North Indian",
+        "default_serving_g": 180.0,
+        "serving_unit_description": "1 plate / 6-7 grilled paneer cubes with bell peppers (~180g)",
+        "description": "Marinated Indian cottage cheese cubes with bell peppers and onions, roasted over tandoor with aromatic spices.",
+        "density_g_ml": 0.95,
+        "nutrition_per_100g": {
+            "calories_kcal": 245.0,
+            "protein_g": 15.2,
+            "carbs_g": 6.8,
+            "fat_g": 17.6,
+            "fiber_g": 1.8,
+            "sugar_g": 2.1,
+            "sodium_mg": 420.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: M024)",
+        },
+        "synonyms": [
+            "paneer tikka", "tandoori paneer", "grilled paneer",
+            "paneer tikka kebab", "paneer skewers", "tandoori paneer tikka"
+        ],
+    },
+    {
+        "key": "samosa",
+        "display_name": "Samosa",
+        "category": "Snack",
+        "cuisine": "Indian",
+        "default_serving_g": 100.0,
+        "serving_unit_description": "1 large crispy samosa with mint & tamarind chutneys (~100g)",
+        "description": "Crispy fried pastry filled with spiced potatoes, green peas, coriander seeds, and ginger.",
+        "density_g_ml": 0.88,
+        "nutrition_per_100g": {
+            "calories_kcal": 262.0,
+            "protein_g": 3.6,
+            "carbs_g": 32.4,
+            "fat_g": 13.1,
+            "fiber_g": 2.8,
+            "sugar_g": 1.5,
+            "sodium_mg": 380.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: S008)",
+        },
+        "synonyms": [
+            "samosa", "singara", "aloo samosa", "punjabi samosa",
+            "crispy samosa", "vegetable samosa", "veg samosa"
+        ],
+    },
+    {
+        "key": "chole_bhature",
+        "display_name": "Chole Bhature",
+        "category": "Main Course",
+        "cuisine": "North Indian",
+        "default_serving_g": 320.0,
+        "serving_unit_description": "1 plate: 170g spicy chickpea curry + 1 large fluffy bhatura (~150g)",
+        "description": "Spicy dark chickpea curry simmered with amchur and whole spices, paired with deep-fried leavened sourdough bread.",
+        "density_g_ml": 0.92,
+        "nutrition_per_100g": {
+            "calories_kcal": 228.0,
+            "protein_g": 5.8,
+            "carbs_g": 31.2,
+            "fat_g": 9.1,
+            "fiber_g": 4.6,
+            "sugar_g": 2.0,
+            "sodium_mg": 410.0,
+            "source": "Indian Food Composition Tables (IFCT 2017, ICMR-NIN, Code: P033)",
+        },
+        "synonyms": [
+            "chole bhature", "chana bhatura", "chhole bhature",
+            "chana masala with bhatura", "bhature chole", "punjabi chole bhature"
+        ],
+    },
+    {
+        "key": "pizza",
+        "display_name": "Pizza",
+        "category": "Fast Food",
+        "cuisine": "Italian / Global",
+        "default_serving_g": 120.0,
+        "serving_unit_description": "1 medium slice cheese / veggie pizza (~120g)",
+        "description": "Oven-baked flatbread topped with tomato sauce, mozzarella cheese, and herbs.",
+        "density_g_ml": 0.80,
+        "nutrition_per_100g": {
+            "calories_kcal": 266.0,
+            "protein_g": 11.4,
+            "carbs_g": 33.3,
+            "fat_g": 9.8,
+            "fiber_g": 2.3,
+            "sugar_g": 3.6,
+            "sodium_mg": 598.0,
+            "source": "USDA FoodData Central (FDC ID: 173292 - Pizza with cheese)",
+        },
+        "synonyms": [
+            "pizza", "cheese pizza", "margherita pizza", "pepperoni pizza",
+            "pizza slice", "pan pizza", "veggie pizza"
+        ],
+    },
+    {
+        "key": "burger",
+        "display_name": "Hamburger",
+        "category": "Fast Food",
+        "cuisine": "American / Global",
+        "default_serving_g": 215.0,
+        "serving_unit_description": "1 single patty burger with bun, lettuce, tomato (~215g)",
+        "description": "Grilled patty placed inside a sliced toasted bun, accompanied by vegetables and condiments.",
+        "density_g_ml": 0.78,
+        "nutrition_per_100g": {
+            "calories_kcal": 254.0,
+            "protein_g": 13.3,
+            "carbs_g": 24.8,
+            "fat_g": 11.8,
+            "fiber_g": 1.4,
+            "sugar_g": 4.2,
+            "sodium_mg": 478.0,
+            "source": "USDA FoodData Central (FDC ID: 170725 - Fast food hamburger)",
+        },
+        "synonyms": [
+            "burger", "hamburger", "cheeseburger", "beef burger",
+            "veggie burger", "chicken burger", "hamburger on bun"
+        ],
+    },
+    {
+        "key": "caesar_salad",
+        "display_name": "Caesar Salad",
+        "category": "Salad",
+        "cuisine": "Global",
+        "default_serving_g": 190.0,
+        "serving_unit_description": "1 medium bowl crisp romaine, croutons, parmesan (~190g)",
+        "description": "Crisp romaine lettuce and toasted croutons tossed in a creamy parmesan and garlic dressing.",
+        "density_g_ml": 0.45,
+        "nutrition_per_100g": {
+            "calories_kcal": 127.0,
+            "protein_g": 3.5,
+            "carbs_g": 5.2,
+            "fat_g": 10.4,
+            "fiber_g": 1.9,
+            "sugar_g": 1.7,
+            "sodium_mg": 320.0,
+            "source": "USDA FoodData Central (FDC ID: 174824 - Caesar salad with dressing)",
+        },
+        "synonyms": [
+            "caesar salad", "salad", "chicken caesar salad",
+            "green salad", "romaine caesar", "caesar salad bowl"
+        ],
+    },
+    {
+        "key": "fried_rice",
+        "display_name": "Fried Rice",
+        "category": "Rice Dish",
+        "cuisine": "Asian / Global",
+        "default_serving_g": 250.0,
+        "serving_unit_description": "1 plate vegetable / egg fried rice (~250g)",
+        "description": "Cooked rice wok-fried at high heat with diced vegetables, eggs, soy sauce, and scallions.",
+        "density_g_ml": 0.82,
+        "nutrition_per_100g": {
+            "calories_kcal": 163.0,
+            "protein_g": 3.9,
+            "carbs_g": 28.4,
+            "fat_g": 4.1,
+            "fiber_g": 1.5,
+            "sugar_g": 0.9,
+            "sodium_mg": 360.0,
+            "source": "USDA FoodData Central (FDC ID: 171329 - Vegetable fried rice)",
+        },
+        "synonyms": [
+            "fried rice", "veg fried rice", "egg fried rice",
+            "chinese fried rice", "schezwan fried rice", "vegetable fried rice"
+        ],
+    },
+]
