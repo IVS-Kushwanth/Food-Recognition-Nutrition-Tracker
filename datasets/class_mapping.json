@@ -1,0 +1,88 @@
+{
+  "classes": [
+    "burger",
+    "caesar_salad",
+    "chapati",
+    "chicken_biryani",
+    "chole_bhature",
+    "dal_makhani",
+    "dosa",
+    "fried_rice",
+    "idli",
+    "paneer_tikka",
+    "pizza",
+    "samosa"
+  ],
+  "class_to_idx": {
+    "burger": 0,
+    "caesar_salad": 1,
+    "chapati": 2,
+    "chicken_biryani": 3,
+    "chole_bhature": 4,
+    "dal_makhani": 5,
+    "dosa": 6,
+    "fried_rice": 7,
+    "idli": 8,
+    "paneer_tikka": 9,
+    "pizza": 10,
+    "samosa": 11
+  },
+  "idx_to_class": {
+    "0": "burger",
+    "1": "caesar_salad",
+    "2": "chapati",
+    "3": "chicken_biryani",
+    "4": "chole_bhature",
+    "5": "dal_makhani",
+    "6": "dosa",
+    "7": "fried_rice",
+    "8": "idli",
+    "9": "paneer_tikka",
+    "10": "pizza",
+    "11": "samosa"
+  },
+  "split_stats": {
+    "train": {
+      "burger": 11,
+      "caesar_salad": 11,
+      "chapati": 11,
+      "chicken_biryani": 11,
+      "chole_bhature": 11,
+      "dal_makhani": 11,
+      "dosa": 11,
+      "fried_rice": 11,
+      "idli": 11,
+      "paneer_tikka": 11,
+      "pizza": 11,
+      "samosa": 11
+    },
+    "val": {
+      "burger": 2,
+      "caesar_salad": 2,
+      "chapati": 2,
+      "chicken_biryani": 2,
+      "chole_bhature": 2,
+      "dal_makhani": 2,
+      "dosa": 2,
+      "fried_rice": 2,
+      "idli": 2,
+      "paneer_tikka": 2,
+      "pizza": 2,
+      "samosa": 2
+    },
+    "test": {
+      "burger": 3,
+      "caesar_salad": 3,
+      "chapati": 3,
+      "chicken_biryani": 3,
+      "chole_bhature": 3,
+      "dal_makhani": 3,
+      "dosa": 3,
+      "fried_rice": 3,
+      "idli": 3,
+      "paneer_tikka": 3,
+      "pizza": 3,
+      "samosa": 3
+    }
+  }
+}
