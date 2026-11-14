@@ -16,7 +16,7 @@
 | **Deepika** | **Is worked on website** | `Deepika` | `frontend/src/`, `frontend/public/` | `frontend/src/**/*`, `frontend/public/*`, `frontend/index.html`, `frontend/vite.config.js`, `frontend/package.json` | `backend/**/*`, `training/**/*`, `datasets/**/*` |
 | **Manikanta** | **GPU** | `Manikanta-&-Koushik` | `training/evaluate_architectures.py`, `backend/models/` | `training/evaluate_architectures.py`, `backend/agents/tools.py`, GPU benchmark scripts | `frontend/**/*`, `backend/database/**/*`, `backend/cache/**/*` |
 | **Koushik** | **pipelining** | `Manikanta-&-Koushik` | `backend/api/`, `backend/services/`, `backend/` | `backend/main.py`, `backend/config.py`, `backend/api/**/*`, `backend/services/image_processor.py`, `backend/services/text_matching.py` | `frontend/**/*`, `training/**/*`, `datasets/**/*` |
-| **Alekhya** | **Documentation, Testing & Evaluation Lead** | `Alekhya` | `documentation/`, `reports/`, `backend/tests/`, `datasets/metadata.json` | `documentation/**/*`, `reports/**/*`, `backend/tests/**/*`, `datasets/metadata.json`, `datasets/class_mapping.json`, `README.md` | Core algorithm modification without review |
+| **Alekhya** | **CPU-GPU Communication & Interconnect Specialist** | `Alekhya` | `backend/services/cpu_gpu_comm.py`, `reports/coa/`, `backend/tests/test_cpu_gpu_comm.py` | `backend/services/cpu_gpu_comm.py`, `reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md`, `backend/tests/test_cpu_gpu_comm.py`, `README.md` | Core model training and database modification without review |
 
 ---
 
@@ -112,17 +112,17 @@
 
 ---
 
-### 7. Alekhya – Documentation, Testing & System Evaluation Lead
+### 7. Alekhya – CPU-GPU Communication & Interconnect Specialist
 - **Core Responsibilities**:
-  - Coordinate and maintain technical project documentation, architectural specifications, and benchmark reports.
-  - Validate model evaluation metrics on held-out test data (`documentation/MODEL_EVALUATION.md`, `documentation/EVALUATION_REPORT.json`).
-  - Generate and verify the 12-class confusion matrix visual (`documentation/confusion_matrix.png`).
-  - Maintain the dataset catalog, class mappings, and Wikimedia Commons intellectual property attributions (`datasets/metadata.json`, `datasets/class_mapping.json`).
-  - Oversee quality assurance across the 21-test pytest suite and audit agent logs in `reports/`.
+  - Maintain the CPU-GPU communication profiler and bus interconnect analysis module (`backend/services/cpu_gpu_comm.py`).
+  - Benchmark and model Host-to-Device (H2D) and Device-to-Host (D2H) transfer latencies across PCIe bus configurations (Gen 3, Gen 4, Gen 5 x16 lanes).
+  - Profile Direct Memory Access (DMA) and the throughput advantage of Pinned (Page-Locked) memory over Pageable memory allocations.
+  - Evaluate Amdahl's Law and Communication-to-Computation Ratios (CCR) for single-sample edge computer vision inference.
+  - Author the formal COA academic report on CPU-GPU bus architecture (`reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md`).
 - **Key Deliverables**:
-  - `documentation/MODEL_EVALUATION.md`, `documentation/EVALUATION_REPORT.json`, `documentation/confusion_matrix.png`.
-  - `datasets/metadata.json` (Creative Commons license documentation).
-  - Test audit reports in `reports/ai_engineer/` and repository governance alignment.
+  - `backend/services/cpu_gpu_comm.py` (CPU-GPU communication profiler).
+  - `reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md` (Academic report on PCIe layers, DMA, and TLP overhead).
+  - `backend/tests/test_cpu_gpu_comm.py` (Verification test suite).
+  - FastAPI endpoint `/api/coa/cpu-gpu-comm` exposing interconnect telemetry.
 - **Testing Requirements**:
-  - Run `pytest backend/tests/ -v` (Confirm all 21 tests pass).
-  - Validate all documentation links and Mermaid diagrams render without error.
+  - Run `python backend/tests/run_all_tests.py` (Confirm Scenario 16: CPU-GPU Communication passes).

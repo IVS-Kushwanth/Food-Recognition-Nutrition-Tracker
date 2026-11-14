@@ -18,7 +18,7 @@ NutriVision AI was built collaboratively with strict modular ownership, clear ar
 | **Deepika** | **Is worked on website** | [`Deepika`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Deepika) | Full-Stack Web Frontend, UI/UX Components, Telemetry Visualizer, Agent Hub Screens | React 19, Vite 6, Axios, Lucide React, Glassmorphic CSS |
 | **Manikanta** | **GPU** | [`Manikanta-&-Koushik`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Manikanta-%26-Koushik) | GPU Accelerator Profiling, Hardware Benchmarking (MobileNet vs EfficientNet vs ResNet), CUDA Telemetry | PyTorch CUDA Toolkit, Torch Intra-op Threads, Hardware Diagnostics |
 | **Koushik** | **pipelining** | [`Manikanta-&-Koushik`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Manikanta-%26-Koushik) | End-to-End Processing Pipeline, FastAPI REST Routes, Fuzzy Text Matching, 14-Scenario Test Suite | FastAPI, Uvicorn, Levenshtein Distance, Token Jaccard, Pytest |
-| **Alekhya** | **Documentation, Testing & Evaluation Lead** | [`Alekhya`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Alekhya) | Project Documentation, Model Evaluation Benchmarks, Dataset Attribution, Automated Test Suites | Python 3.12, Pytest, Markdown/LaTeX, JSON Schemas, Confusion Matrix |
+| **Alekhya** | **CPU-GPU Communication & Interconnect Specialist** | [`Alekhya`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Alekhya) | CPU-GPU Bus Transfers, Direct Memory Access (DMA), Pinned Memory, PCIe Bandwidth Profiling | Python 3.12, PyTorch CUDA, PCIe Gen 3/4/5 Specs, DMA Mechanics |
 
 ---
 
@@ -202,36 +202,31 @@ sequenceDiagram
 
 ---
 
-### 5. Alekhya – Documentation, Testing & System Evaluation Lead
+### 5. Alekhya – CPU-GPU Communication & Interconnect Specialist
 - **Assigned Git Branch**: [`Alekhya`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Alekhya)
-- **Scoped Folders**: `documentation/`, `reports/`, `datasets/metadata.json`, `datasets/class_mapping.json`, `datasets/download_dataset.py`, `backend/tests/`
-- **Tech Stack Used**: Python 3.12, Pytest, Scikit-learn (Confusion Matrix), JSON Schemas, Markdown/LaTeX, Wikimedia Commons Licensing Standards.
+- **Scoped Folders**: `backend/services/cpu_gpu_comm.py`, `reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md`, `backend/tests/test_cpu_gpu_comm.py`
+- **Tech Stack Used**: Python 3.12, PyTorch CUDA Toolkit, PCIe Interconnect Specifications (Gen 3 / Gen 4 / Gen 5), Direct Memory Access (DMA), Pinned (Page-Locked) Memory.
 
 #### What She Built:
-1. **Model Evaluation & Classification Benchmarks**:
-   - Authored and maintained the structured evaluation reports in `documentation/MODEL_EVALUATION.md` and `documentation/EVALUATION_REPORT.json`.
-   - Audited held-out test benchmarks across 12 target classes: Top-1 (**63.89%**), Top-5 (**91.67%**), Macro F1-score (**62.28%**), and mean CPU inference latency (**16.19 ms**).
-   - Generated the 12-class test set confusion matrix visualization in `documentation/confusion_matrix.png`.
-2. **Dataset Catalog & Intellectual Property Attribution**:
-   - Curated comprehensive dataset metadata in `datasets/metadata.json` documenting every raw and processed food image with Creative Commons licensing, author attribution, and source URLs.
-   - Maintained the class index mapping in `datasets/class_mapping.json` and download verification utility in `datasets/download_dataset.py`.
-3. **Automated Verification & Quality Assurance (21 Pytests + 14 Scenarios)**:
-   - Structured and maintained the unit and integration test suites in `backend/tests/`:
-     - `test_api.py`: FastAPI endpoint status codes (200, 400, 422, 404), multipart payload validation, and CORS handling.
-     - `test_matching.py`: Levenshtein distance, token Jaccard similarity, and synonym dictionary edge cases.
-     - `test_cache.py`: LRU cache hit/miss latency, key ordering, and capacity-6 eviction.
-     - `test_nutrition.py`: Proportional nutrient scaling accuracy across serving sizes.
-     - `test_agents.py`: Multi-threaded autonomous agent lifecycle, task queues, and inter-agent message buses.
-   - Maintained the comprehensive 14-scenario automated test runner `backend/tests/run_all_tests.py` ensuring zero regressions across all builds.
-4. **Academic Project Governance & Technical Documentation**:
-   - Authored and aligned repository governance standards: `README.md`, `PROJECT_STRUCTURE.md`, `BRANCH_STRATEGY.md`, `TEAM_ALLOCATION.md`, and `CONTRIBUTION_GUIDELINES.md`.
-   - Cataloged inter-agent diagnostic reports and hardware test logs in `reports/ai_engineer/` and `reports/coa/`.
+1. **CPU-GPU Communication & Bus Interconnect Profiler (`backend/services/cpu_gpu_comm.py`)**:
+   - Engineered the communication profiler analyzing Host-to-Device (H2D) and Device-to-Host (D2H) tensor transfers.
+   - Profiled theoretical and empirical throughput across **PCIe Gen 3 x16 (15.75 GB/s)**, **PCIe Gen 4 x16 (31.50 GB/s)**, and **PCIe Gen 5 x16 (63.00 GB/s)** interconnect buses.
+   - Modeled Direct Memory Access (DMA) controllers and evaluated **Pinned (Page-Locked) Memory** vs **Pageable Memory**:
+     $$\text{Pinned Memory Speedup} \approx 1.45\times \text{ over pageable allocations by eliminating OS kernel page-staging buffers}$$
+2. **Amdahl's Law & Communication Bottleneck Analysis**:
+   - Evaluated the Communication-to-Computation Ratio (CCR) for single-frame food classification ($1 \times 3 \times 224 \times 224$ float32 tensor = $588\,\text{KB}$).
+   - Demonstrated why low-latency edge models (MobileNetV3 on CPU) avoid the serialization latency penalty of the PCIe bus, justifying the single-instance DRAM resident architecture.
+3. **Formal COA Academic Report**:
+   - Authored [`reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md`](file:///c:/Users/HP/Downloads/COA%20PROJECT/reports/coa/CPU_GPU_COMMUNICATION_AND_BUS_ARCHITECTURE.md) covering the three layers of the PCIe protocol (Transaction, Data Link, Physical), TLP packetization, DMA engines, and unified virtual memory.
+4. **Verification & Testing**:
+   - Implemented `backend/tests/test_cpu_gpu_comm.py` testing transfer latency, PCIe bandwidth calculations, pinned memory speedup, and Amdahl's ratio assertions.
+   - Integrated with the FastAPI `/api/coa/cpu-gpu-comm` endpoint and Scenario 16 in `backend/tests/run_all_tests.py`.
 
 #### How It Interlinks:
-- Audits and verifies Reshma's MobileNetV3 model performance, ensuring Top-5 accuracy exceeds 90% and inference latency stays sub-20ms.
-- Validates Koushik's FastAPI pipeline and endpoints through comprehensive pytest assertions.
-- Cross-verifies Kushwanth & Ganesh's LRU cache and SQLite secondary storage access latencies against hardware benchmarks.
-- Ensures all documentation, schemas, and visual assets rendered in Deepika's frontend report reader and telemetry panel remain synchronized with actual backend performance metrics.
+- **With Manikanta (GPU)**: Complements Manikanta's GPU kernel latency benchmarks by quantifying the bus transfer tax required to transmit input images from Host DRAM to GPU VRAM and retrieve softmax classification probabilities.
+- **With Kushwanth & Ganesh (CPU & Memory)**: Extends the 4-tier COA memory hierarchy by bridging Host DRAM (Level 2) and Host CPU execution with external PCIe bus lines.
+- **With Koushik (Pipeline)**: Provides microsecond-level transfer metrics exposed through the `/api/coa/cpu-gpu-comm` REST endpoint.
+- **With Deepika (Website)**: Enables frontend visualization of PCIe bus utilization, H2D/D2H transfer latencies, and DMA controller status.
 
 ---
 

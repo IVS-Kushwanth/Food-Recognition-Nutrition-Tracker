@@ -404,3 +404,27 @@ def reset_lru_cache():
     """Resets the LRU cache counters and data for interactive testing of cache misses."""
     nutrition_lru_cache.clear()
     return {"success": True, "message": "LRU Cache cleared. Subsequent lookups will register CACHE MISS."}
+
+
+@router.get("/coa/cpu-gpu-comm")
+def get_cpu_gpu_communication_telemetry(
+    pinned: bool = Query(True, description="Whether to evaluate pinned (page-locked) DMA transfers"),
+    compute_ms: float = Query(16.19, description="Measured model inference compute latency in ms"),
+):
+    """
+    Subsystem: CPU-GPU Communication & Bus Interconnect (Alekhya's Module).
+    Returns Host-to-Device (H2D), Device-to-Host (D2H), PCIe bus throughput, and DMA metrics.
+    """
+    from backend.services.cpu_gpu_comm import cpu_gpu_profiler
+
+    specs = cpu_gpu_profiler.get_interconnect_specs()
+    transfer = cpu_gpu_profiler.measure_transfer_latency(pinned=pinned, iterations=15)
+    amdahl = cpu_gpu_profiler.evaluate_amdahls_bottleneck(compute_ms=compute_ms)
+
+    return {
+        "subsystem_lead": "Alekhya (CPU-GPU Communication & Interconnect Specialist)",
+        "interconnect_specs": specs,
+        "transfer_metrics": transfer,
+        "amdahls_bottleneck_analysis": amdahl,
+    }
+
