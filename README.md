@@ -18,6 +18,7 @@ NutriVision AI was built collaboratively with strict modular ownership, clear ar
 | **Deepika** | **Is worked on website** | [`Deepika`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Deepika) | Full-Stack Web Frontend, UI/UX Components, Telemetry Visualizer, Agent Hub Screens | React 19, Vite 6, Axios, Lucide React, Glassmorphic CSS |
 | **Manikanta** | **GPU** | [`Manikanta-&-Koushik`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Manikanta-%26-Koushik) | GPU Accelerator Profiling, Hardware Benchmarking (MobileNet vs EfficientNet vs ResNet), CUDA Telemetry | PyTorch CUDA Toolkit, Torch Intra-op Threads, Hardware Diagnostics |
 | **Koushik** | **pipelining** | [`Manikanta-&-Koushik`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Manikanta-%26-Koushik) | End-to-End Processing Pipeline, FastAPI REST Routes, Fuzzy Text Matching, 14-Scenario Test Suite | FastAPI, Uvicorn, Levenshtein Distance, Token Jaccard, Pytest |
+| **Alekhya** | **Documentation, Testing & Evaluation Lead** | [`Alekhya`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Alekhya) | Project Documentation, Model Evaluation Benchmarks, Dataset Attribution, Automated Test Suites | Python 3.12, Pytest, Markdown/LaTeX, JSON Schemas, Confusion Matrix |
 
 ---
 
@@ -34,7 +35,9 @@ sequenceDiagram
     participant ML as Reshma (MobileNetV3 & Portion Estimator)
     participant GPU as Manikanta (GPU & Hardware Accelerator Audit)
     participant COA as Kushwanth & Ganesh (COA LRU Cache & SQLite DB)
+    participant QA as Alekhya (Documentation, Testing & Evaluation)
 
+    Note over QA,Pipe: Alekhya executes the 21-test Pytest suite & 14-scenario runner to verify pipeline health
     User->>Web: Uploads plate image & enters dish name
     Web->>Pipe: Sends multipart form-data to POST /api/analyze
     Note over Pipe: Koushik initiates high-resolution pipeline timer (t0)
@@ -58,6 +61,7 @@ sequenceDiagram
     Note over Pipe: Koushik captures end-to-end processing latency (t_total)
     Pipe-->>Web: Returns unified JSON payload (Classification + Nutrition + COA Telemetry)
     Web-->>User: Renders top predictions, macro charts, and 4-tier COA pyramid
+    Note over QA,Web: Alekhya compiles performance metrics into reports and synchronizes frontend telemetry
 ```
 
 ---
@@ -198,6 +202,39 @@ sequenceDiagram
 
 ---
 
+### 5. Alekhya – Documentation, Testing & System Evaluation Lead
+- **Assigned Git Branch**: [`Alekhya`](https://github.com/IVS-Kushwanth/Food-Recognition-Nutrition-Tracker/tree/Alekhya)
+- **Scoped Folders**: `documentation/`, `reports/`, `datasets/metadata.json`, `datasets/class_mapping.json`, `datasets/download_dataset.py`, `backend/tests/`
+- **Tech Stack Used**: Python 3.12, Pytest, Scikit-learn (Confusion Matrix), JSON Schemas, Markdown/LaTeX, Wikimedia Commons Licensing Standards.
+
+#### What She Built:
+1. **Model Evaluation & Classification Benchmarks**:
+   - Authored and maintained the structured evaluation reports in `documentation/MODEL_EVALUATION.md` and `documentation/EVALUATION_REPORT.json`.
+   - Audited held-out test benchmarks across 12 target classes: Top-1 (**63.89%**), Top-5 (**91.67%**), Macro F1-score (**62.28%**), and mean CPU inference latency (**16.19 ms**).
+   - Generated the 12-class test set confusion matrix visualization in `documentation/confusion_matrix.png`.
+2. **Dataset Catalog & Intellectual Property Attribution**:
+   - Curated comprehensive dataset metadata in `datasets/metadata.json` documenting every raw and processed food image with Creative Commons licensing, author attribution, and source URLs.
+   - Maintained the class index mapping in `datasets/class_mapping.json` and download verification utility in `datasets/download_dataset.py`.
+3. **Automated Verification & Quality Assurance (21 Pytests + 14 Scenarios)**:
+   - Structured and maintained the unit and integration test suites in `backend/tests/`:
+     - `test_api.py`: FastAPI endpoint status codes (200, 400, 422, 404), multipart payload validation, and CORS handling.
+     - `test_matching.py`: Levenshtein distance, token Jaccard similarity, and synonym dictionary edge cases.
+     - `test_cache.py`: LRU cache hit/miss latency, key ordering, and capacity-6 eviction.
+     - `test_nutrition.py`: Proportional nutrient scaling accuracy across serving sizes.
+     - `test_agents.py`: Multi-threaded autonomous agent lifecycle, task queues, and inter-agent message buses.
+   - Maintained the comprehensive 14-scenario automated test runner `backend/tests/run_all_tests.py` ensuring zero regressions across all builds.
+4. **Academic Project Governance & Technical Documentation**:
+   - Authored and aligned repository governance standards: `README.md`, `PROJECT_STRUCTURE.md`, `BRANCH_STRATEGY.md`, `TEAM_ALLOCATION.md`, and `CONTRIBUTION_GUIDELINES.md`.
+   - Cataloged inter-agent diagnostic reports and hardware test logs in `reports/ai_engineer/` and `reports/coa/`.
+
+#### How It Interlinks:
+- Audits and verifies Reshma's MobileNetV3 model performance, ensuring Top-5 accuracy exceeds 90% and inference latency stays sub-20ms.
+- Validates Koushik's FastAPI pipeline and endpoints through comprehensive pytest assertions.
+- Cross-verifies Kushwanth & Ganesh's LRU cache and SQLite secondary storage access latencies against hardware benchmarks.
+- Ensures all documentation, schemas, and visual assets rendered in Deepika's frontend report reader and telemetry panel remain synchronized with actual backend performance metrics.
+
+---
+
 ## ⚡ COA Memory Hierarchy Latency Spectrum
 
 The system explicitly profiles and displays the operational characteristics of each tier in the memory hierarchy:
@@ -257,7 +294,7 @@ Food Recognition & Nutrition Tracker/
 │   │   ├── nutrition_calculator.py # Proportional nutrient scaling formula implementation
 │   │   ├── nutrition_service.py    # LRU Cache lookup coordinator with DB fallback
 │   │   └── text_matching.py        # Multi-tier text-image matching & mismatch detection
-│   ├── tests/                      # Automated Verification Test Suites
+│   ├── tests/                      # Automated Verification Test Suites (Alekhya & Koushik)
 │   │   ├── run_all_tests.py        # 14-scenario end-to-end verification runner
 │   │   ├── test_agents.py          # Autonomous agent thread & task lifecycle tests
 │   │   ├── test_api.py             # FastAPI REST endpoint integration tests
@@ -294,7 +331,7 @@ Food Recognition & Nutrition Tracker/
 │       └── services/
 │           └── api.js              # Axios HTTP client connecting to FastAPI backend
 │
-├── datasets/                       # Model Training & Benchmark Datasets (Reshma)
+├── datasets/                       # Model Training & Benchmark Datasets (Reshma & Alekhya)
 │   ├── class_mapping.json          # 12-class index mapping & train/val/test split counts
 │   ├── metadata.json               # Wikimedia Commons attribution & license records
 │   ├── download_dataset.py         # Dataset download & verification utility
@@ -308,13 +345,13 @@ Food Recognition & Nutrition Tracker/
 │   ├── evaluate.py                 # Test-set evaluation & confusion matrix generator
 │   └── training_history.json       # Epoch-by-epoch loss & accuracy log
 │
-├── documentation/                  # Technical Architecture & Academic Reports
+├── documentation/                  # Technical Architecture & Academic Reports (Alekhya)
 │   ├── ARCHITECTURE_BENCHMARK.json # Candidate model CPU latency & parameter benchmarks
 │   ├── MODEL_EVALUATION.md         # Held-out test set accuracy, precision & recall metrics
 │   ├── EVALUATION_REPORT.json      # Structured classification evaluation metrics
 │   └── confusion_matrix.png        # 12-class test set confusion matrix visual
 │
-└── reports/                        # Autonomous Agent Generated Reports
+└── reports/                        # Autonomous Agent Generated Reports (Alekhya & Leads)
     ├── coa/                        # Bot A Generated Computer Architecture Reports
     │   ├── CPU_REGISTERS_AND_ALU_OPERATIONS.md
     │   └── MEMORY_HIERARCHY_AND_CACHE_ARCHITECTURE.md
