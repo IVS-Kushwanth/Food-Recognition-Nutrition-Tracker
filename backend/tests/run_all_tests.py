@@ -233,6 +233,18 @@ def main():
         assert len(stats["memory_hierarchy_table"]) == 4
     results.append(run_test("15. COA Memory Hierarchy Instrumentation", s15))
 
+    # Scenario 16: Test CPU-GPU Communication & Interconnect Profiling (Alekhya)
+    def s16():
+        from backend.services.cpu_gpu_comm import cpu_gpu_profiler
+        specs = cpu_gpu_profiler.get_interconnect_specs()
+        assert "PCIe Gen 4 x16" in specs["supported_interconnects"]
+        trans = cpu_gpu_profiler.measure_transfer_latency(iterations=5)
+        assert trans["h2d_latency_us"] > 0
+        assert trans["payload_bytes"] > 0
+        amdahl = cpu_gpu_profiler.evaluate_amdahls_bottleneck(compute_ms=16.19)
+        assert amdahl["compute_time_ms"] == 16.19
+    results.append(run_test("16. CPU-GPU Communication & Interconnect Profiling", s16))
+
     passed_count = sum(1 for p, _ in results if p)
     total_count = len(results)
 
