@@ -34,15 +34,16 @@ sequenceDiagram
     participant Pipe as Koushik (FastAPI Pipeline & Fuzzy Matching)
     participant ML as Reshma (MobileNetV3 & Portion Estimator)
     participant GPU as Manikanta (GPU & Hardware Accelerator Audit)
+    participant Comm as Alekhya (CPU-GPU Interconnect & PCIe Bus)
     participant COA as Kushwanth & Ganesh (COA LRU Cache & SQLite DB)
-    participant QA as Alekhya (Documentation, Testing & Evaluation)
 
-    Note over QA,Pipe: Alekhya executes the 21-test Pytest suite & 14-scenario runner to verify pipeline health
     User->>Web: Uploads plate image & enters dish name
     Web->>Pipe: Sends multipart form-data to POST /api/analyze
     Note over Pipe: Koushik initiates high-resolution pipeline timer (t0)
     Pipe->>ML: Sends normalized image tensor (224x224 RGB)
     Note over ML,GPU: Reshma's singleton MobileNetV3 executes forward pass<br/>(Audited by Manikanta for GPU/CPU acceleration & thread utilization)
+    Pipe->>Comm: Evaluates Host-to-Device transfer latency & DMA mechanics
+    Note over Comm,GPU: Alekhya profiles PCIe Gen 3/4/5 bus throughput & pinned memory speedup
     ML-->>Pipe: Returns Top-5 predictions + bulk density portion estimate
     Pipe->>Pipe: Executes fuzzy text-image matching (Levenshtein + Jaccard)
     alt Text-Image Mismatch Detected
@@ -61,7 +62,7 @@ sequenceDiagram
     Note over Pipe: Koushik captures end-to-end processing latency (t_total)
     Pipe-->>Web: Returns unified JSON payload (Classification + Nutrition + COA Telemetry)
     Web-->>User: Renders top predictions, macro charts, and 4-tier COA pyramid
-    Note over QA,Web: Alekhya compiles performance metrics into reports and synchronizes frontend telemetry
+    Note over Comm,Web: Alekhya synchronizes PCIe bus & DMA telemetry to the CPU-GPU simulator
 ```
 
 ---
