@@ -22,8 +22,10 @@ export default function App() {
       {/* Main Content Area */}
       <main style={{ flex: 1 }}>
         {activeTab === 'analyze' && <AnalysisPage onNavigateTab={setActiveTab} />}
+        {activeTab === 'cpu_sim' && <CoaExplorerPage defaultModule="cpu_sim" />}
+        {activeTab === 'cpu_gpu' && <CoaExplorerPage defaultModule="cpu_gpu" />}
+        {activeTab === 'coa' && <CoaExplorerPage defaultModule="memory_hierarchy" />}
         {activeTab === 'history' && <HistoryPage />}
-        {activeTab === 'coa' && <CoaExplorerPage />}
         {activeTab === 'agents' && <AgentsDashboardPage onNavigateTab={setActiveTab} />}
         {activeTab === 'bot_a' && <BotAPage onNavigateTab={setActiveTab} />}
         {activeTab === 'bot_b' && <BotBPage onNavigateTab={setActiveTab} />}

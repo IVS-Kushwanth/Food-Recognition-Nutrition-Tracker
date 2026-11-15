@@ -90,6 +90,16 @@ sequenceDiagram
      - `MEMORY_HIERARCHY_AND_CACHE_ARCHITECTURE.md`: Analyzes L1/L2 SRAM latency vs DRAM RAM residency vs secondary storage.
 4. **Architectural Project Governance**:
    - Established repository guidelines, branch protection models, and directory taxonomy (`TEAM_ALLOCATION.md`, `PROJECT_STRUCTURE.md`, `BRANCH_STRATEGY.md`).
+5. **Interactive CPU Architecture Internal Datapath (`cpusimulator.tech` Model)**:
+   - Designed the full Von Neumann CPU datapath modeled directly after `https://cpusimulator.tech/`.
+   - Structured micro-operation sequences across cycle steps $T_0$ through $T_5$:
+     - $T_0$: Address latch ($\text{MAR} \leftarrow \text{PC}$)
+     - $T_1$: Memory read & PC increment ($\text{MDR} \leftarrow \text{RAM}[\text{MAR}], \text{PC} \leftarrow \text{PC} + 1$)
+     - $T_2$: Opcode decode ($\text{IR} \leftarrow \text{MDR}$)
+     - $T_3$: Operand address latch ($\text{MAR} \leftarrow \text{IR}[\text{address}]$)
+     - $T_4$: Operand data fetch ($\text{MDR} \leftarrow \text{RAM}[\text{MAR}]$)
+     - $T_5$: ALU computation and flag updates ($\text{ACC} \leftarrow \text{ALU}(\text{ACC}, \text{MDR})$, Flags $\{Z, N, C, V\}$)
+   - Formulated machine-level workflows for Calorie Macro Accumulation, MobileNetV3 3x3 Conv MAC loops, and LRU Cache Tag Matching.
 
 #### How It Interlinks:
 - Serves verified nutritional data directly to Koushik's FastAPI pipeline.
@@ -137,7 +147,7 @@ sequenceDiagram
 #### What She Built:
 1. **Interactive Single Page Application (SPA)**:
    - Created the full React 19 client in `frontend/src/App.jsx` using Vite for sub-second hot-module reloading and optimized production bundles.
-   - Built a sleek, dark-mode glassmorphic design system in `frontend/src/index.css`.
+   - Built a refined, classic professional website styling system in `frontend/src/index.css` featuring deep slate panels, technical borders, status LEDs, and classic typography.
 2. **Core Recognition & Nutrition Components**:
    - `ImageUploader.jsx`: Drag-and-drop food image uploader with image preview, format validation, and instant one-click food presets.
    - `MatchBanner.jsx`: Interactive mismatch banner that alerts the user when their entered food name conflicts with the model's visual prediction (e.g., entered *"Veg Fried Rice"* vs predicted *"Chicken Biryani"*).
@@ -145,7 +155,9 @@ sequenceDiagram
    - `NutritionCards.jsx`: Metric cards displaying Calories, Protein, Carbohydrates, Fat, and Dietary Fiber with % Daily Values (% DV).
    - `MacroChart.jsx`: Custom SVG donut chart illustrating the caloric macro split (4 kcal/g protein & carbs, 9 kcal/g fat).
    - `PortionController.jsx`: Real-time serving size slider (50g to 1000g) that instantly recalculates macronutrients without making repetitive server requests.
-3. **COA Memory Hierarchy Visualizer**:
+3. **COA Architecture & Interactive Hardware Simulators**:
+   - `CpuArchitectureSimulator.jsx`: Interactive Von Neumann CPU datapath modeled directly on `https://cpusimulator.tech/`. Features Control Unit micro-step sequencer (T0–T5), Registers (PC, MAR, MDR, IR, ACC, Z/N/C/V Flags), trapezoidal ALU with active operation badge, tri-state system buses (Address, Data, Control) with animated electrical signal flows, interactive 32-cell RAM grid, and selectable preset machine routines.
+   - `CpuGpuCommunicationSimulator.jsx`: Interactive CPU-GPU Interconnect and bus transfer simulator featuring Host CPU, DRAM (pinned vs pageable), PCIe Gen 3/4/5 duplex lane packet animations, DMA engine, GPU VRAM, and Amdahl's Law communication-to-computation profiling.
    - `MemoryHierarchyDiagram.jsx`: Interactive 4-tier pyramid diagram illustrating CPU Registers $\rightarrow$ RAM Residency $\rightarrow$ Application LRU Cache $\rightarrow$ Secondary Storage.
    - `CoaTelemetryPanel.jsx`: Live microsecond-level latency breakdown displaying exact timing for CPU pipeline, LRU cache query, and SQLite disk fallback.
 4. **Autonomous Agents Management Hub**:

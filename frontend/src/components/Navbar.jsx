@@ -23,17 +23,18 @@ export default function Navbar({ activeTab, setActiveTab }) {
   }, []);
 
   const navItems = [
-    // Core Food Recognition Group
-    { id: 'analyze', label: 'Analyze Food', icon: Activity, group: 'app' },
-    { id: 'history', label: 'History', icon: History, group: 'app' },
-    { id: 'coa', label: 'COA Architecture', icon: Cpu, group: 'app' },
-    // Autonomous Agents Group
-    { id: 'agents', label: 'Agents Hub', icon: Bot, group: 'agent' },
-    { id: 'bot_a', label: 'Bot A (COA)', icon: Cpu, group: 'agent' },
-    { id: 'bot_b', label: 'Bot B (AI Eng)', icon: Zap, group: 'agent' },
-    { id: 'tasks', label: 'Tasks', icon: Clock, group: 'agent', badge: agentCounts?.in_progress ? `${agentCounts.in_progress}` : null },
-    { id: 'comms', label: 'Comms', icon: MessageSquare, group: 'agent' },
-    { id: 'reports', label: 'Reports', icon: FileText, group: 'agent' },
+    // Core Food Recognition & COA Architecture Group
+    { id: 'analyze', label: 'Analyze Food', icon: Activity },
+    { id: 'cpu_sim', label: 'CPU Simulator', icon: Cpu, badge: 'cpusim' },
+    { id: 'cpu_gpu', label: 'CPU-GPU Bus', icon: Zap },
+    { id: 'coa', label: 'Memory Hierarchy', icon: Database },
+    { id: 'history', label: 'History', icon: History },
+    // Autonomous Multi-Agent Suite
+    { id: 'agents', label: 'Agents Hub', icon: Bot },
+    { id: 'bot_a', label: 'Bot A (COA)', icon: Cpu },
+    { id: 'bot_b', label: 'Bot B (AI)', icon: Zap },
+    { id: 'tasks', label: 'Tasks', icon: Clock, badge: agentCounts?.in_progress ? `${agentCounts.in_progress}` : null },
+    { id: 'reports', label: 'Reports', icon: FileText },
   ];
 
   return (

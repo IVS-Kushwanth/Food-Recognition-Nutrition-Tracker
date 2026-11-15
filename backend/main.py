@@ -62,6 +62,10 @@ def startup_event():
     classifier.predict(dummy)
     print(f"Model pre-warmed and resident in RAM ({classifier.ram_resident_size_mb} MB).")
     print("=" * 60)
+    print("NutriVision AI is READY and actively RUNNING!")
+    print("Open your browser at: http://127.0.0.1:8000")
+    print("Leave this terminal OPEN while using the app (press Ctrl+C only to stop).")
+    print("=" * 60)
 
 
 # Mount frontend production build if available

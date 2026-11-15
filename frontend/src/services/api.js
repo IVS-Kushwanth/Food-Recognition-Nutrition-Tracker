@@ -84,6 +84,14 @@ export const api = {
     return res.data;
   },
 
+  // CPU-GPU Communication & Interconnect Telemetry (Alekhya's Subsystem)
+  getCpuGpuCommTelemetry: async (pinned = true, computeMs = 16.19) => {
+    const res = await axios.get(`${API_BASE}/api/coa/cpu-gpu-comm`, {
+      params: { pinned, compute_ms: computeMs },
+    });
+    return res.data;
+  },
+
   // -----------------------------------------------------------------------
   // Autonomous Agents Hub API
   // -----------------------------------------------------------------------
