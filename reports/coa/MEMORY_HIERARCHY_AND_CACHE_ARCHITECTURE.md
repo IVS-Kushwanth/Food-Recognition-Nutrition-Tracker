@@ -5,7 +5,7 @@
 **Co-Investigator**: Bot B – AI Engineer (Hardware & Telemetry Profiler)  
 **Project**: Food Recognition & Nutrition Tracker  
 **Task Subject**: [COA Architecture Phase] Collaborative Memory Hierarchy and Caching Analysis  
-**Date Generated**: 2026-11-14 07:59:29 UTC  
+**Date Generated**: 2026-11-16 04:25:09 UTC  
 
 ---
 
@@ -24,8 +24,8 @@ flowchart TD
     subgraph Hierarchy["COA Memory Hierarchy Pyramid"]
         L1["Level 1: CPU Registers & L1/L2 SRAM<br/>~0.5 - 10 ns | Few KB - MB"]
         L2["Level 2: Main Memory (DRAM)<br/>~50 - 100 ns | Resident PyTorch MobileNetV3 (5.88 MB)"]
-        L3["Level 3: Application LRU Cache (In-RAM)<br/>~2.76 µs (0.0028 ms) | Capacity = 6 Records"]
-        L4["Level 4: Secondary Storage (NVMe/SSD)<br/>~1.241 ms | SQLite food_nutrition.db"]
+        L3["Level 3: Application LRU Cache (In-RAM)<br/>~3.33 µs (0.0033 ms) | Capacity = 6 Records"]
+        L4["Level 4: Secondary Storage (NVMe/SSD)<br/>~0.961 ms | SQLite food_nutrition.db"]
     end
 
     L1 --> L2
@@ -39,9 +39,9 @@ flowchart TD
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Level 0: Registers** | CPU Execution Units | < 1 KB | ~0.5 - 1.0 ns | Hardware Standard | 1x |
 | **Level 1: Hardware SRAM** | CPU L1/L2 Cache | 32 KB - 1 MB | ~1 - 10 ns | Hardware Standard | 10x |
-| **Level 2: Main Memory** | RAM Resident PyTorch Weights | 5.88 MB footprint | ~50 - 100 ns | System DRAM (5548.26 MB free) | 100x |
-| **Level 3: Application LRU** | In-Memory Hash Map + DLL | 6 Food Records | ~2 - 15 µs | **2.76 µs** (0.0028 ms) | **2760x** |
-| **Level 4: Secondary Storage** | SQLite (`food_nutrition.db`) | Persistent Disk | ~1 - 5 ms | **1.241 ms** | **1241000x** |
+| **Level 2: Main Memory** | RAM Resident PyTorch Weights | 5.88 MB footprint | ~50 - 100 ns | System DRAM (2212.35 MB free) | 100x |
+| **Level 3: Application LRU** | In-Memory Hash Map + DLL | 6 Food Records | ~2 - 15 µs | **3.33 µs** (0.0033 ms) | **3330x** |
+| **Level 4: Secondary Storage** | SQLite (`food_nutrition.db`) | Persistent Disk | ~1 - 5 ms | **0.961 ms** | **961000x** |
 
 ---
 
@@ -54,9 +54,9 @@ Users frequently log the same staple meals (e.g. *Chicken Biryani, Dosa, Idli, C
 
 ### B. Empirical Cache Speedup
 Comparing the measured uncached SQLite disk query against the in-memory LRU cache:
-`Speedup Factor = T_Disk / T_Cache = 1.241 ms / 0.0028 ms = 449.3x`
+`Speedup Factor = T_Disk / T_Cache = 0.961 ms / 0.0033 ms = 288.8x`
 
-The application LRU cache executes approximately **449.3 times faster** than disk queries, completely bypassing kernel VFS context switches and SQLite disk B-Tree traversal.
+The application LRU cache executes approximately **288.8 times faster** than disk queries, completely bypassing kernel VFS context switches and SQLite disk B-Tree traversal.
 
 ---
 

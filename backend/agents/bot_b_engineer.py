@@ -7,8 +7,16 @@ identifies and fixes code bugs, and sends verified findings to Bot A.
 Produces real, non-fabricated ML benchmark reports and test verification logs.
 """
 
+import sys
 import time
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Ensure project root is in sys.path when running as a standalone script
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from backend.agents.base_agent import BaseAgent
 from backend.agents.tools import (
     read_project_file,
@@ -455,3 +463,47 @@ flowchart LR
 
 The project codebase passes all unit and integration test criteria. No breaking modifications detected.
 """
+
+
+if __name__ == "__main__":
+    import sys
+    from backend.agents.db_models import init_agent_db
+
+    init_agent_db()
+
+    print("=" * 65)
+    print("🤖 Launching Bot B – AI Systems Engineer (Autonomous Agent)")
+    print("=" * 65)
+
+    bot_b = BotBAIEngineer()
+    arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
+
+    if arg in ["2", "test", "verify", "suite"]:
+        task = {
+            "id": f"cli_ai_test_{int(time.time())}",
+            "title": "Run test suite and fix detected bugs",
+            "description": "Execute comprehensive pytest suite, diagnose defects, and sign off verification log.",
+            "assigned_to": "bot_b",
+        }
+    else:
+        task = {
+            "id": f"cli_ai_benchmark_{int(time.time())}",
+            "title": "Measure food image recognition inference time",
+            "description": "Benchmark MobileNetV3 forward pass latency distribution, p95 jitter, and RAM footprint on CPU.",
+            "assigned_to": "bot_b",
+        }
+
+    print(f"Task Assigned: [{task['title']}]")
+    print(f"Objective: {task['description']}")
+    print("\nExecuting Autonomous 7-Phase Loop:")
+    print("  PLAN -> ASSIGN -> EXECUTE -> OBSERVE -> DEBUG -> VERIFY -> REPORT...")
+
+    result = bot_b.execute_task(task)
+
+    print("\n" + "=" * 65)
+    print(f"✅ Bot B Execution Status: {result.get('status', '').upper()}")
+    print(f"📄 Deliverables Generated:")
+    for deliverable in result.get("deliverables", []):
+        print(f"   • {deliverable}")
+    print("=" * 65)
+

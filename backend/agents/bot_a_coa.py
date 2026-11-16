@@ -7,8 +7,16 @@ Communicates with Bot B to acquire real hardware and cache measurements.
 Produces real, deeply technical COA research reports and Mermaid architecture diagrams.
 """
 
+import sys
 import time
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Ensure project root is in sys.path when running as a standalone script
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from backend.agents.base_agent import BaseAgent
 from backend.agents.tools import (
     read_project_file,
@@ -427,3 +435,47 @@ Traditional unoptimized Python scripts re-import PyTorch model checkpoints on ev
             .replace("{REL_CACHE}", str(rel_cache))
             .replace("{REL_DISK}", str(rel_disk))
         )
+
+
+if __name__ == "__main__":
+    import sys
+    from backend.agents.db_models import init_agent_db
+
+    init_agent_db()
+
+    print("=" * 65)
+    print("🤖 Launching Bot A – COA Researcher (Autonomous Agent)")
+    print("=" * 65)
+
+    bot_a = BotACOAResearcher()
+    arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
+
+    if arg in ["2", "memory", "cache", "hierarchy"]:
+        task = {
+            "id": f"cli_coa_memory_{int(time.time())}",
+            "title": "Analyze memory hierarchy and cache architecture",
+            "description": "Evaluate L1/L2 SRAM latency, RAM residency, and empirical Level 3 LRU cache speedup over secondary storage.",
+            "assigned_to": "bot_a",
+        }
+    else:
+        task = {
+            "id": f"cli_coa_alu_{int(time.time())}",
+            "title": "Research CPU registers and ALU operations",
+            "description": "Investigate CPU register allocations (AC, DR, MAR) and ALU arithmetic operations during deep learning inference.",
+            "assigned_to": "bot_a",
+        }
+
+    print(f"Task Assigned: [{task['title']}]")
+    print(f"Objective: {task['description']}")
+    print("\nExecuting Autonomous 7-Phase Loop:")
+    print("  PLAN -> ASSIGN -> EXECUTE -> OBSERVE -> DEBUG -> VERIFY -> REPORT...")
+    
+    result = bot_a.execute_task(task)
+    
+    print("\n" + "=" * 65)
+    print(f"✅ Bot A Execution Status: {result.get('status', '').upper()}")
+    print(f"📄 Deliverables Generated:")
+    for deliverable in result.get("deliverables", []):
+        print(f"   • {deliverable}")
+    print("=" * 65)
+
