@@ -476,22 +476,41 @@ if __name__ == "__main__":
     print("=" * 65)
 
     bot_b = BotBAIEngineer()
-    arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
-
-    if arg in ["2", "test", "verify", "suite"]:
+    
+    # Support custom task title and description from CLI
+    if len(sys.argv) > 2:
+        custom_title = sys.argv[1]
+        custom_desc = sys.argv[2]
         task = {
-            "id": f"cli_ai_test_{int(time.time())}",
-            "title": "Run test suite and fix detected bugs",
-            "description": "Execute comprehensive pytest suite, diagnose defects, and sign off verification log.",
+            "id": f"cli_ai_custom_{int(time.time())}",
+            "title": custom_title,
+            "description": custom_desc,
+            "assigned_to": "bot_b",
+        }
+    elif len(sys.argv) == 2 and sys.argv[1] not in ["1", "2"]:
+        custom_title = sys.argv[1]
+        task = {
+            "id": f"cli_ai_custom_{int(time.time())}",
+            "title": custom_title,
+            "description": f"Autonomous AI engineering diagnostic for: {custom_title}",
             "assigned_to": "bot_b",
         }
     else:
-        task = {
-            "id": f"cli_ai_benchmark_{int(time.time())}",
-            "title": "Measure food image recognition inference time",
-            "description": "Benchmark MobileNetV3 forward pass latency distribution, p95 jitter, and RAM footprint on CPU.",
-            "assigned_to": "bot_b",
-        }
+        arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
+        if arg in ["2", "test", "verify", "suite"]:
+            task = {
+                "id": f"cli_ai_test_{int(time.time())}",
+                "title": "Run test suite and fix detected bugs",
+                "description": "Execute comprehensive pytest suite, diagnose defects, and sign off verification log.",
+                "assigned_to": "bot_b",
+            }
+        else:
+            task = {
+                "id": f"cli_ai_benchmark_{int(time.time())}",
+                "title": "Measure food image recognition inference time",
+                "description": "Benchmark MobileNetV3 forward pass latency distribution, p95 jitter, and RAM footprint on CPU.",
+                "assigned_to": "bot_b",
+            }
 
     print(f"Task Assigned: [{task['title']}]")
     print(f"Objective: {task['description']}")

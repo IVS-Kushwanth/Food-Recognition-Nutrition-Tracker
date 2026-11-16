@@ -448,22 +448,41 @@ if __name__ == "__main__":
     print("=" * 65)
 
     bot_a = BotACOAResearcher()
-    arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
-
-    if arg in ["2", "memory", "cache", "hierarchy"]:
+    
+    # Support custom task title and description from CLI
+    if len(sys.argv) > 2:
+        custom_title = sys.argv[1]
+        custom_desc = sys.argv[2]
         task = {
-            "id": f"cli_coa_memory_{int(time.time())}",
-            "title": "Analyze memory hierarchy and cache architecture",
-            "description": "Evaluate L1/L2 SRAM latency, RAM residency, and empirical Level 3 LRU cache speedup over secondary storage.",
+            "id": f"cli_custom_{int(time.time())}",
+            "title": custom_title,
+            "description": custom_desc,
+            "assigned_to": "bot_a",
+        }
+    elif len(sys.argv) == 2 and sys.argv[1] not in ["1", "2"]:
+        custom_title = sys.argv[1]
+        task = {
+            "id": f"cli_custom_{int(time.time())}",
+            "title": custom_title,
+            "description": f"Autonomous COA investigation for: {custom_title}",
             "assigned_to": "bot_a",
         }
     else:
-        task = {
-            "id": f"cli_coa_alu_{int(time.time())}",
-            "title": "Research CPU registers and ALU operations",
-            "description": "Investigate CPU register allocations (AC, DR, MAR) and ALU arithmetic operations during deep learning inference.",
-            "assigned_to": "bot_a",
-        }
+        arg = sys.argv[1].lower() if len(sys.argv) > 1 else "1"
+        if arg in ["2", "memory", "cache", "hierarchy"]:
+            task = {
+                "id": f"cli_coa_memory_{int(time.time())}",
+                "title": "Analyze memory hierarchy and cache architecture",
+                "description": "Evaluate L1/L2 SRAM latency, RAM residency, and empirical Level 3 LRU cache speedup over secondary storage.",
+                "assigned_to": "bot_a",
+            }
+        else:
+            task = {
+                "id": f"cli_coa_alu_{int(time.time())}",
+                "title": "Research CPU registers and ALU operations",
+                "description": "Investigate CPU register allocations (AC, DR, MAR) and ALU arithmetic operations during deep learning inference.",
+                "assigned_to": "bot_a",
+            }
 
     print(f"Task Assigned: [{task['title']}]")
     print(f"Objective: {task['description']}")
